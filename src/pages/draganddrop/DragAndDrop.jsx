@@ -2,6 +2,32 @@ import React, { memo, useState, useEffect } from "react";
 import "./DragAndDrop.css";
 
 const DragAndDrop = () => {
+  const [words, setWords] = useState(
+    JSON.parse(localStorage.getItem("words")) || []
+  );
+
+  function handleDrop(event) {
+    event.preventDefault();
+
+    const droppedEnglishWord = event.dataTransfer.getData("text");
+    const targetUzbekWord = event.target.innerText;
+    displayed;
+
+    setWords((prevWords) =>
+      prevWords.map((word) => {
+        if (word.order === droppedEnglishWord) {
+          return { ...word, matchedUzbekWord: targetUzbekWord };
+        } else {
+          return word;
+        }
+      })
+    );
+  }
+
+  function handleDragStart(event, englishWord) {
+    event.dataTransfer.setData("text", englishWord.order);
+  }
+
   return (
     <div className="container">
       <div className="drag_container">
@@ -15,12 +41,24 @@ const DragAndDrop = () => {
             <p></p>
             <ul className="matching-top">
               <b>English Words</b>
-              <li></li>
+              {words.map((englishWord, inx) => (
+                <li
+                  key={inx}
+                  draggable="true"
+                  onDragStart={(e) => handleDragStart(e, englishWord)}
+                >
+                  {englishWord.eng}
+                </li>
+              ))}
             </ul>
             <b className="matching-answer"></b>
             <ul className="matching-bottom">
               <b>Uzbek words</b>
-              <li></li>
+              {words.map((uzbekWord, inx) => (
+                <li key={inx} onDrop={(e) => handleDrop(e, uzbekWord.uz)}>
+                  {uzbekWord.uz}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -17,6 +17,7 @@ const Units = () => {
   }, []);
   function handleLead(i) {
     localStorage.setItem("words", JSON.stringify(data[i]?.unitWords));
+    localStorage.setItem("sentences", JSON.stringify(data[i]?.sentences));
     navigate(`/units/${i}`);
     console.log(data[i]?.unitWords);
   }

@@ -1,7 +1,40 @@
 import React, { memo, useState, useEffect } from "react";
+import { FaArrowRight, FaRandom } from "react-icons/fa";
 import "./gapfill.css";
 
 const GapFill = () => {
+  let sentences = JSON.parse(localStorage.getItem("sentences")) || [];
+  let [sentence, setSentence] = useState(sentences[0]);
+  let [index, setIndex] = useState(0);
+  let [msg, setMsg] = useState("");
+
+  function next() {
+    setTimeout(() => {
+      setIndex(index + 1);
+      setSentence(sentences[index]);
+      if (index == sentences.length - 1) {
+        setIndex(0);
+      }
+    }, 2500);
+  }
+
+  function check(word) {
+    const filledSentence = sentence.gap.replace("...", word);
+    console.log(filledSentence);
+    const newObject = {
+      ...sentence,
+      gap: filledSentence,
+    };
+    setSentence(newObject);
+    if (sentence.fullText.includes(word)) {
+      setMsg("Correct");
+      next();
+    } else {
+      setMsg("Incorrect");
+      next();
+    }
+  }
+
   return (
     <div className="container">
       <div className="drag_container">
@@ -15,19 +48,21 @@ const GapFill = () => {
             <p></p>
             <ul className="matching-top">
               <b>gap fill</b>
-              {/* {.map((id) => (
-                <li key={id} onClick={() => setTextEnId(id)}>
-                  {texts.find((text) => text.id === id).gapfill}
-                </li>
-              ))} */}
+              <li>{sentence.gap}</li>
             </ul>
-            <b className="matching-answer"></b>
+            <b
+              style={{ color: msg === "Correct" ? "green" : "red" }}
+              className="matching-answer"
+            >
+              {msg}
+            </b>
             <ul className="matching-bottom">
               <b> words</b>
-              {/* {.map((id) => (
-                <li >
+              {sentence.answers.map((item, id) => (
+                <li onClick={() => check(item)} key={id}>
+                  {item}
                 </li>
-              ))} */}
+              ))}
             </ul>
           </div>
         </div>
