@@ -5,7 +5,7 @@ import "./gapfill.css";
 const GapFill = () => {
   let sentences = JSON.parse(localStorage.getItem("sentences")) || [];
   let [sentence, setSentence] = useState(sentences[0]);
-  let [index, setIndex] = useState(0);
+  let [index, setIndex] = useState(1);
   let [msg, setMsg] = useState("");
 
   function next() {
