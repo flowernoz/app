@@ -45,7 +45,7 @@ const GapFill = () => {
             <button className="matching_btn">Tekshirish</button>
           </div>
           <div className="matching_container">
-            <p></p>
+            <p>{sentence.order + "/" + sentences.length}</p>
             <ul className="matching-top">
               <b>gap fill</b>
               <li>{sentence.gap}</li>
