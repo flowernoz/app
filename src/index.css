@@ -15,6 +15,11 @@
 button,
 svg {
   cursor: pointer;
+  border: none;
+}
+
+button:disabled {
+  cursor: no-drop;
 }
 
 ::-webkit-scrollbar {
