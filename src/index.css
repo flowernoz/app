@@ -34,3 +34,6 @@ button:disabled {
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
+button:not(.li):hover{
+background: #f1f1f1;
+}

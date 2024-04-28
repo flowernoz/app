@@ -64,9 +64,6 @@ hr {
   border-radius: 10px;
   box-shadow: 3px 3px 5px #d6def7, -3px -3px 5px #e7ebf7;
 }
-.matching-top .li:focus {
-  background-color: gray;
-}
 
 .matching-bottom {
   width: 100%;
@@ -87,7 +84,7 @@ hr {
   border-radius: 10px;
   box-shadow: 3px 3px 5px #d6def7, -3px -3px 5px #e7ebf7;
 }
-
+.restart,
 .matching_btn {
   padding: 7px 16px;
   border-radius: 10px;
@@ -99,4 +96,11 @@ hr {
 .matching-answer {
   color: red;
   text-align: right;
+}
+.li:focus {
+  background: rgb(239, 237, 237) !important;
+}
+.li:disabled{
+  opacity: 0.25 !important;
+  cursor: no-drop;
 }

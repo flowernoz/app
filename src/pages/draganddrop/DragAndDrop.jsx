@@ -1,114 +1,4 @@
-// import React, { memo, useState, useEffect } from "react";
-// import "./DragAndDrop.css";
-
-// const DragAndDrop = () => {
-//   const [words, setWords] = useState(
-//     JSON.parse(localStorage.getItem("words")) || []
-//   );
-
-//   const [engId, setEngId] = useState(null);
-//   const [check, setCheck] = useState(1);
-//   const [correctIDs, setCorrectIDs] = useState([]);
-
-//   const data = words.slice(0, 5);
-//   const dataUz = words
-//     .slice(0, 5)
-//     .map(
-//       (i) =>
-//         i && {
-//           ...i,
-//           index: Math.floor(Math.random() * new Date().getMilliseconds()),
-//         }
-//     )
-//     .sort((a, b) => {
-//       if (a.index < b.index) return 1;
-//       else return -1;
-//     });
-
-//   console.log(dataUz);
-
-//   function checkMatching(uzID) {
-//     engId === uzID
-//       ? (setCheck("true"), setCorrectIDs((e) => [...e, engId]), setEngId(null))
-//       : setCheck("false");
-//   }
-
-//   console.log(correctIDs);
-
-//   return (
-//     <div className="container">
-//       <div className="drag_container">
-//         <div className="drop_cards">
-//           <div className="drop_header">
-//             <h2>Matching</h2>
-//             <button>restart</button>
-//             <button className="matching_btn">Tekshirish</button>
-//           </div>
-//           <div className="matching_container">
-//             <p></p>
-//             <ul className="matching-top">
-//               <b>English Words</b>
-//               {data.map((englishWord, inx) => (
-//                 <li
-//                   style={{
-//                     background:
-//                       check === "true" &&
-//                       correctIDs?.some((i) => i === englishWord.order)
-//                         ? "greenyellow"
-//                         : check === "false"
-//                         ? "crimson"
-//                         : "transparent",
-
-//                     opacity: correctIDs.length
-//                       ? correctIDs?.some((i) => i === englishWord.order)
-//                         ? "0.2"
-//                         : "1"
-//                       : "1",
-//                   }}
-//                   onClick={() => setEngId(englishWord.order)}
-//                   key={inx}
-//                 >
-//                   {englishWord.eng}
-//                 </li>
-//               ))}
-//             </ul>
-
-//             <b className="matching-answer"></b>
-//             <ul className="matching-bottom">
-//               <b>Uzbek words</b>
-//               {dataUz.map((uzbekWord, inx) => (
-//                 <li
-//                   style={{
-//                     background:
-//                       check === "true" &&
-//                       correctIDs?.some((i) => i === uzbekWord.order)
-//                         ? "greenyellow"
-//                         : check === "false"
-//                         ? "crimson"
-//                         : "transparent",
-//                     opacity: correctIDs.length
-//                       ? correctIDs?.some((i) => i === uzbekWord.order)
-//                         ? "0.2"
-//                         : "1"
-//                       : "1",
-//                   }}
-//                   onClick={() => checkMatching(uzbekWord.order)}
-//                   key={inx}
-//                 >
-//                   {uzbekWord.uz}
-//                 </li>
-//               ))}
-//             </ul>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default memo(DragAndDrop);
-
-import React, { memo, useState } from "react";
+import React, { memo, useState, useMemo } from "react";
 import "./DragAndDrop.css";
 
 const DragAndDrop = () => {
@@ -119,31 +9,26 @@ const DragAndDrop = () => {
   const [engId, setEngId] = useState(null);
   const [check, setCheck] = useState(true);
   const [correctIDs, setCorrectIDs] = useState([]);
+  let [start, setStart] = useState(0);
+  let [end, setEnd] = useState(5);
 
-  const data = words.slice(0, 5);
-  const dataUz = words
-    .slice(0, 5)
-    .map(
-      (i) =>
-        i && {
-          ...i,
-          index: Math.floor(Math.random() * +new Date().getTime()),
-        }
-    )
-    .sort((a, b) => {
-      if (a.index < b.index) return 1;
-      else return -1;
-    });
+  const data = words.slice(start, end);
 
-  console.log(dataUz);
-
-  // function checkMatching(uzID) {
-  //   engId === uzID
-  //     ? (setCheck(true),
-  //       setCorrectIDs((prevCorrectIDs) => [...prevCorrectIDs, engId]),
-  //       setEngId(null))
-  //     : setCheck(false);
-  // }
+  const dataUz = useMemo(() => {
+    return words
+      .slice(start, end)
+      .map(
+        (i) =>
+          i && {
+            ...i,
+            index: Math.floor(Math.random() * +new Date().getTime()),
+          }
+      )
+      .sort((a, b) => {
+        if (a.index < b.index) return 1;
+        else return -1;
+      });
+  }, [start, end]);
 
   function checkMatching(uzID) {
     engId === uzID
@@ -160,6 +45,11 @@ const DragAndDrop = () => {
     setWords([]);
     setCorrectIDs([]);
   };
+  const next = () => {
+    setStart(start !== 10 ? (start += 5) : 0);
+    setEnd(end !== 15 ? (end += 5) : 5);
+    console.log(start, end);
+  };
 
   return (
     <div className="container">
@@ -167,9 +57,11 @@ const DragAndDrop = () => {
         <div className="drop_cards">
           <div className="drop_header">
             <h2>Matching</h2>
-            <button onClick={restartGame}>restart</button>
-            <button className="matching_btn" onClick={() => setCheck(true)}>
-              Tekshirish
+            <button className="restart" onClick={restartGame}>
+              Restart
+            </button>
+            <button className="matching_btn" onClick={next}>
+              Next
             </button>
           </div>
           <div className="matching_container">
@@ -183,9 +75,9 @@ const DragAndDrop = () => {
                   style={{
                     background:
                       check && correctIDs?.some((i) => i === englishWord.order)
-                        ? "greenyellow"
-                        : !check
-                        ? "transparent"
+                        ? "#08f26e"
+                        : engId === englishWord.order && !check
+                        ? "#f01e2c"
                         : "transparent",
 
                     opacity: correctIDs.length
@@ -212,9 +104,7 @@ const DragAndDrop = () => {
                   style={{
                     background:
                       check && correctIDs?.some((i) => i === uzbekWord.order)
-                        ? "greenyellow"
-                        : !check
-                        ? "transparent"
+                        ? "#08f26e"
                         : "transparent",
                     opacity: correctIDs.length
                       ? correctIDs?.some((i) => i === uzbekWord.order)
@@ -237,3 +127,126 @@ const DragAndDrop = () => {
 };
 
 export default memo(DragAndDrop);
+
+// import React, { memo, useState, useMemo } from "react";
+// import "./DragAndDrop.css";
+
+// const DragAndDrop = () => {
+//   const [words, setWords] = useState(
+//     JSON.parse(localStorage.getItem("words")) || []
+//   );
+
+//   const [engId, setEngId] = useState(null); // Currently selected English word ID
+//   const [check, setCheck] = useState(false); // Indicates if a match is found
+//   const [correctIDs, setCorrectIDs] = useState([]); // Array of correctly matched IDs
+//   const [start, setStart] = useState(0);
+//   const [end, setEnd] = useState(5);
+
+//   // Memoized data slice for English words
+//   const data = useMemo(() => words.slice(start, end), [start, end]);
+
+//   // Memoized data slice with random indices for Uzbek words, sorted
+//   const dataUz = useMemo(() => {
+//     return words
+//       .slice(start, end)
+//       .map(
+//         (i) =>
+//           i && {
+//             ...i,
+//             index: Math.floor(Math.random() * +new Date().getTime()),
+//           }
+//       )
+//       .sort((a, b) => (a.index < b.index ? -1 : 1));
+//   }, [start, end]);
+
+//   function checkMatching(uzbekWordID) {
+//     if (engId === uzbekWordID) {
+//       setCheck(true);
+//       setCorrectIDs([...correctIDs, engId]); // Update correct IDs
+//       setEngId(null); // Clear selected English word
+//     } else {
+//       setCheck(false);
+//     }
+//   }
+
+//   const restartGame = () => {
+//     setWords([]);
+//     setCorrectIDs([]);
+//   };
+
+//   // Improved `next` function with conditional logic for incrementing
+//   const next = () => {
+//     setStart((prevStart) => (prevStart !== 10 ? prevStart + 5 : 0));
+//     setEnd((prevEnd) => (prevEnd !== 15 ? prevEnd + 5 : 5));
+//   };
+
+//   return (
+//     <div className="container">
+//       <div className="drag_container">
+//         <div className="drop_cards">
+//           <div className="drop_header">
+//             <h2>Matching</h2>
+//             <button onClick={restartGame}>Restart</button>
+//             <button className="matching_btn" onClick={next}>
+//               Tekshirish (Check)
+//             </button>
+//           </div>
+//           <div className="matching_container">
+//             <p></p>
+//             <ul className="matching-top">
+//               <b>English Words</b>
+//               {data.map((englishWord, inx) => (
+//                 <button
+//                   key={inx}
+//                   className="li"
+//                   // Styling based on selection and correctness
+//                   style={{
+//                     background:
+//                       engId === englishWord.order && check
+//                         ? "green" // Green for selected and correct
+//                         : engId === englishWord.order && !check
+//                         ? "red" // Red for selected but incorrect
+//                         : "transparent",
+//                     opacity: correctIDs.length
+//                       ? correctIDs.some((i) => i === englishWord.order)
+//                         ? 0.5 // Dimmed if correctly matched
+//                         : 1
+//                       : 1,
+//                   }}
+//                   disabled={correctIDs.some((i) => i === englishWord.order)}
+//                   onClick={() => setEngId(englishWord.order)}
+//                 >
+//                   {englishWord.eng}
+//                 </button>
+//               ))}
+//             </ul>
+
+//             <b className="matching-answer"></b>
+//             <ul className="matching-bottom">
+//               <b>Uzbek words</b>
+//               {dataUz.map((uzbekWord, inx) => (
+//                 <button
+//                   key={inx}
+//                   className="li"
+//                   // Styling based on correctness
+//                   style={{
+//                     background: correctIDs.some((i) => i === uzbekWord.order)
+//                       ? "greenyellow" // Greenyellow for correctly matched
+//                       : "transparent",
+//                     opacity: 1,
+//                   }}
+//                   disabled={correctIDs.some((i) => i === uzbekWord.order)}
+//                   onClick={() => checkMatching(uzbekWord.order)}
+//                 >
+//                   {uzbekWord.uz}
+//                 </button>
+//               ))}
+//             </ul>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default memo(DragAndDrop);
