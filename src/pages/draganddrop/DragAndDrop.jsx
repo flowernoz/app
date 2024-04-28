@@ -1,4 +1,5 @@
 import React, { memo, useState, useMemo } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "./DragAndDrop.css";
 
 const DragAndDrop = () => {
@@ -52,6 +53,11 @@ const DragAndDrop = () => {
     setEnd(end !== 15 ? (end += 5) : 5);
     setPath(path == 3 ? 1 : path + 1);
   };
+  const prev = () => {
+    setStart((p) => (p <= 10 ? (p -= 5) : 0));
+    setEnd((p) => (p <= 15 ? (p -= 5) : 5));
+    setPath((p) => p - 1);
+  };
 
   return (
     <div className="container">
@@ -62,9 +68,22 @@ const DragAndDrop = () => {
             <button className="restart" onClick={restartGame}>
               Restart
             </button>
-            <button className="matching_btn" onClick={next}>
-              Next
-            </button>
+            <div className="arrows">
+              <button
+                disabled={path == 1}
+                className="matching_btn"
+                onClick={prev}
+              >
+                <FaArrowLeft />
+              </button>
+              <button
+                disabled={path == 3}
+                className="matching_btn"
+                onClick={next}
+              >
+                <FaArrowRight />
+              </button>
+            </div>
           </div>
           <div className="matching_container">
             <p>{path}/3</p>

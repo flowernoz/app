@@ -104,3 +104,10 @@ hr {
   opacity: 0.25 !important;
   cursor: no-drop;
 }
+.arrows{
+  display: flex;
+  gap: 12px;
+}
+.arrows button:disabled{
+  opacity: 0.3;
+}
