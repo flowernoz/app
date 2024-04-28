@@ -30,13 +30,7 @@ const GapFill = () => {
   }
 
   function check(word) {
-    const filledSentence = sentence.gap.replace("...", word);
-    console.log(filledSentence);
-    const newObject = {
-      ...sentence,
-      gap: filledSentence,
-    };
-    setSentence(newObject);
+    setSentence({...sentence,  gap: sentence.fullText });
     if (sentence.fullText.includes(word)) {
       setMsg("Correct");
       setCorrect((p) => p + 1);
@@ -99,7 +93,7 @@ const GapFill = () => {
             <ul className="matching-bottom">
               <b> words</b>
               {sentence.answers.map((item, id) => (
-                <li className="li" onClick={() => check(item)} key={id}>
+                <li className="li options" onClick={() => check(item)} key={id}>
                   {item}
                 </li>
               ))}

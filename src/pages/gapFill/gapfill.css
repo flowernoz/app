@@ -4,3 +4,6 @@
 .error{
     color: red ;
 }
+.li.options:hover{
+background: rgb(240, 239, 239) !important;
+}
