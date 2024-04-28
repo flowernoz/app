@@ -11,7 +11,7 @@ const DragAndDrop = () => {
   const [correctIDs, setCorrectIDs] = useState([]);
   let [start, setStart] = useState(0);
   let [end, setEnd] = useState(5);
-
+  let [path, setPath] = useState(1);
   const data = words.slice(start, end);
 
   const dataUz = useMemo(() => {
@@ -42,13 +42,15 @@ const DragAndDrop = () => {
   }
 
   const restartGame = () => {
-    setWords([]);
     setCorrectIDs([]);
+    setStart(0);
+    setEnd(5);
+    setPath(1);
   };
   const next = () => {
     setStart(start !== 10 ? (start += 5) : 0);
     setEnd(end !== 15 ? (end += 5) : 5);
-    console.log(start, end);
+    setPath(path == 3 ? 1 : path + 1);
   };
 
   return (
@@ -65,7 +67,7 @@ const DragAndDrop = () => {
             </button>
           </div>
           <div className="matching_container">
-            <p></p>
+            <p>{path}/3</p>
             <ul className="matching-top">
               <b>English Words</b>
               {data.map((englishWord, inx) => (
