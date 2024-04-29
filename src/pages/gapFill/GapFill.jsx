@@ -12,12 +12,17 @@ const GapFill = () => {
 
   function next() {
     setTimeout(() => {
+      if (!sentences || sentences.length === 0) {
+        return;
+      }
+      if (index === sentences.length) {
+        setMsg("You've completed all 15 sentences!");
+        clearTimeout(timeoutId);
+        return;
+      }
       setIndex(index + 1);
       setMsg("");
       setSentence(sentences[index]);
-      if (index == sentences.length - 1) {
-        setIndex(0);
-      }
     }, 2500);
   }
 
@@ -30,7 +35,8 @@ const GapFill = () => {
   }
 
   function check(word) {
-    setSentence({...sentence,  gap: sentence.fullText });
+    setSentence({ ...sentence, gap: sentence?.fullText });
+    console.log(word);
     if (sentence.fullText.includes(word)) {
       setMsg("Correct");
       setCorrect((p) => p + 1);
@@ -67,7 +73,7 @@ const GapFill = () => {
             </div>
           </div>
           <div className="matching_container">
-            <p>{sentence.order + "/" + sentences.length}</p>
+            <p>{sentence?.order + "/" + sentences?.length}</p>
             <ul className="matching-top">
               <b>gap fill</b>
               <li
@@ -81,21 +87,33 @@ const GapFill = () => {
                       : "transparent",
                 }}
               >
-                {sentence.gap}
+                {sentence?.gap}
               </li>
             </ul>
             <b
-              style={{ color: msg === "Correct" ? "#08f26e" : "#f01e2c" }}
+              style={{
+                color:
+                  msg === "Correct"
+                    ? "#08f26e"
+                    : msg === "Incorrect"
+                    ? "#f01e2c"
+                    : "#003d80",
+              }}
               className="matching-answer"
             >
               {msg}
             </b>
             <ul className="matching-bottom">
               <b> words</b>
-              {sentence.answers.map((item, id) => (
-                <li className="li options" onClick={() => check(item)} key={id}>
+              {sentence?.answers.map((item, id) => (
+                <button
+                  disabled={msg.length}
+                  className="li options"
+                  onClick={() => check(item?.trim())}
+                  key={id}
+                >
                   {item}
-                </li>
+                </button>
               ))}
             </ul>
           </div>

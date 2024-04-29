@@ -97,17 +97,17 @@ hr {
   color: red;
   text-align: right;
 }
-.li:focus {
+.li:focus:not(.li.options) {
   background: rgb(239, 237, 237) !important;
 }
-.li:disabled{
+.li:disabled:not(.li.options) {
   opacity: 0.25 !important;
   cursor: no-drop;
 }
-.arrows{
+.arrows {
   display: flex;
   gap: 12px;
 }
-.arrows button:disabled{
+.arrows button:disabled {
   opacity: 0.3;
 }

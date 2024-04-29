@@ -15,13 +15,13 @@ const Learn = () => {
   }
 
   const random = () => {
-    let n = Math.floor(Math.random() * words.length);
+    let n = Math.floor(Math.random() * words?.length);
     setText(words.find((i, inx) => inx === n));
   };
   function next() {
     setIndex(index + 1);
     setText(words[index]);
-    if (index == words.length - 1) {
+    if (index == words?.length - 1) {
       setIndex(0);
     }
   }

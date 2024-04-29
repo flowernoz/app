@@ -89,19 +89,19 @@ const DragAndDrop = () => {
             <p>{path}/3</p>
             <ul className="matching-top">
               <b>English Words</b>
-              {data.map((englishWord, inx) => (
+              {data?.map((englishWord, inx) => (
                 <button
                   className="li"
-                  disabled={correctIDs?.some((i) => i === englishWord.order)}
+                  disabled={correctIDs?.some((i) => i === englishWord?.order)}
                   style={{
                     background:
-                      check && correctIDs?.some((i) => i === englishWord.order)
+                      check && correctIDs?.some((i) => i === englishWord?.order)
                         ? "#08f26e"
-                        : engId === englishWord.order && !check
+                        : engId === englishWord?.order && !check
                         ? "#f01e2c"
                         : "transparent",
 
-                    opacity: correctIDs.length
+                    opacity: correctIDs?.length
                       ? correctIDs?.some((i) => i === englishWord.order)
                         ? "1"
                         : "1"
@@ -118,7 +118,7 @@ const DragAndDrop = () => {
             <b className="matching-answer"></b>
             <ul className="matching-bottom">
               <b>Uzbek words</b>
-              {dataUz.map((uzbekWord, inx) => (
+              {dataUz?.map((uzbekWord, inx) => (
                 <button
                   className="li"
                   disabled={correctIDs?.some((i) => i === uzbekWord.order)}
@@ -127,7 +127,7 @@ const DragAndDrop = () => {
                       check && correctIDs?.some((i) => i === uzbekWord.order)
                         ? "#08f26e"
                         : "transparent",
-                    opacity: correctIDs.length
+                    opacity: correctIDs?.length
                       ? correctIDs?.some((i) => i === uzbekWord.order)
                         ? "1"
                         : "1"
