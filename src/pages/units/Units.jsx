@@ -8,47 +8,42 @@ const Units = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
+
   useEffect(() => {
-    axios
-      .get("/data/alldata")
-      .then((res) => {
-        setData(res.data.innerData);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoader(false));
+    const storedData = localStorage.getItem("unitsData");
+
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setData(parsedData);
+      } catch (error) {
+        console.error("Error parsing stored data:", error);
+      } finally {
+        setLoader(false);
+      }
+    } else {
+      axios
+        .get("/data/alldata")
+        .then((res) => {
+          setData(res.data.innerData);
+          localStorage.setItem("unitsData", JSON.stringify(res.data.innerData));
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setLoader(false));
+    }
   }, []);
+
   function handleLead(i) {
     localStorage.setItem("words", JSON.stringify(data[i]?.unitWords));
     localStorage.setItem("sentences", JSON.stringify(data[i]?.sentences));
     navigate(`/units/${i}`);
   }
-  // return (
-  //   <div className="units_page">
-  //     {loader ? (
-  //       <img className="loading" src={loading} alt="alter" />
-  //     ) : (
-  //       <div className="container">
-  //         {data.map((i, inx) => (
-  //           <div
-  //             key={inx}
-  //             className="unit_exercise"
-  //             onClick={() => {
-  //               handleLead(inx);
-  //             }}
-  //           >
-  //             <b className="unit_exercise_number">{i?.unit}</b>
-  //             <b className="unit_exercise_title">{i?.title} Theme</b>
-  //           </div>
-  //         ))}
-  //       </div>
-  //     )}
-  //   </div>
-  // );
+
   return (
     <div className="units_page">
       {loader ? (
         <img className="loading" src={loading} alt="Loading..." />
-      ) : data.length > 0 ? (
+      ) : data.length ? (
         <div className="container">
           {data.map((i, inx) => (
             <div
@@ -64,7 +59,7 @@ const Units = () => {
           ))}
         </div>
       ) : (
-        <p>Units data is not available yet.</p>
+        <p>Unit data is not available yet.</p>
       )}
     </div>
   );
