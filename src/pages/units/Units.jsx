@@ -22,11 +22,33 @@ const Units = () => {
     localStorage.setItem("sentences", JSON.stringify(data[i]?.sentences));
     navigate(`/units/${i}`);
   }
+  // return (
+  //   <div className="units_page">
+  //     {loader ? (
+  //       <img className="loading" src={loading} alt="alter" />
+  //     ) : (
+  //       <div className="container">
+  //         {data.map((i, inx) => (
+  //           <div
+  //             key={inx}
+  //             className="unit_exercise"
+  //             onClick={() => {
+  //               handleLead(inx);
+  //             }}
+  //           >
+  //             <b className="unit_exercise_number">{i?.unit}</b>
+  //             <b className="unit_exercise_title">{i?.title} Theme</b>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     )}
+  //   </div>
+  // );
   return (
     <div className="units_page">
       {loader ? (
-        <img className="loading" src={loading} alt="alter" />
-      ) : (
+        <img className="loading" src={loading} alt="Loading..." />
+      ) : data.length > 0 ? (
         <div className="container">
           {data.map((i, inx) => (
             <div
@@ -41,6 +63,8 @@ const Units = () => {
             </div>
           ))}
         </div>
+      ) : (
+        <p>Units data is not available yet.</p>
       )}
     </div>
   );
