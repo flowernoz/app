@@ -21,9 +21,7 @@ const Units = () => {
     localStorage.setItem("words", JSON.stringify(data[i]?.unitWords));
     localStorage.setItem("sentences", JSON.stringify(data[i]?.sentences));
     navigate(`/units/${i}`);
-    console.log(data[i]?.unitWords);
   }
-  console.log(data);
   return (
     <div className="units_page">
       {loader ? (

@@ -36,7 +36,6 @@ const GapFill = () => {
 
   function check(word) {
     setSentence({ ...sentence, gap: sentence?.fullText });
-    console.log(word);
     if (sentence.fullText.includes(word)) {
       setMsg("Correct");
       setCorrect((p) => p + 1);
