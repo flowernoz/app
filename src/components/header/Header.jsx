@@ -49,11 +49,12 @@ const Header = () => {
             initial="hidden"
             animate="visable"
           >
-            <motion.span
+            <motion.span 
               variants={textVariants}
               initial="hidden"
               animate="visable"
-              style={{ fontSize: 30 }}
+              className="header_logo_mobile_app"
+              style={{ fontSize: 25 }}
             >
               {pathname === "/unit" ? " Welcome to practice" : "Welcome to app"}
             </motion.span>

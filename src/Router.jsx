@@ -8,6 +8,7 @@ import Units from "./pages/units/Units";
 import UnitExercise from "./pages/unitexercise/UnitExercise";
 import DragAndDrop from "./pages/draganddrop/DragAndDrop";
 import GapFill from "./pages/gapFill/GapFill";
+import AppInfo from "./pages/appInfo/AppInfo";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
           <Route path="/units/:unit" element={<UnitExercise />} />
           <Route path="/matchingwords" element={<DragAndDrop />} />
           <Route path="/gapfill" element={<GapFill />} />
+          <Route path="/appinfo" element={<AppInfo />} />
         </Route>
       </Routes>
     </div>

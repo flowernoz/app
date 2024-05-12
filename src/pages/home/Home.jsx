@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import "./Home.css";
-import book from "../../assets/book-removebg-preview (1).png";
+import book from "../../assets/cover.jpg";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -79,6 +79,7 @@ const Home = () => {
             variants={imgContainerVariants}
             initial="hidden"
             animate="visable"
+            style={{ width: "200px" }}
           >
             <img src={book} alt="" />
           </motion.div>
@@ -93,7 +94,7 @@ const Home = () => {
               Start
             </motion.button>
             <motion.button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/appinfo")}
               className="btn_next"
               variants={buttonTwoVariants}
               initial="hidden"

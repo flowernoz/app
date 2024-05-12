@@ -1,0 +1,31 @@
+.app_info {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.owner_info {
+    font-size: 18px;
+    font-weight: 550;
+    margin-top: 20px;
+    margin-top: 20px;
+}
+
+.owner_contact {
+    font-size: 17px;
+    margin-top: 10px;
+    font-size: italic;
+    color: blue,
+}
+
+.owner_telegram {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.owner_telegram>a {
+    color: blue;
+    text-decoration: none;
+    width: 100%;
+}

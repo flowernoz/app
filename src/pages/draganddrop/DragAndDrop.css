@@ -26,11 +26,6 @@
   border-radius: 10px;
 }
 
-.drop_header h2 {
-  font-size: 27px;
-  letter-spacing: 1.5px;
-}
-
 .matching_container {
   width: 100%;
   padding: 10px;
@@ -81,9 +76,10 @@ hr {
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 3px 3px 5px #d6def7, -3px -3px 5px #e7ebf7;
 }
+
 .restart,
 .matching_btn {
   padding: 7px 16px;
@@ -97,17 +93,21 @@ hr {
   color: red;
   text-align: right;
 }
+
 .li:focus:not(.li.options) {
   background: rgb(239, 237, 237) !important;
 }
+
 .li:disabled:not(.li.options) {
   opacity: 0.25 !important;
   cursor: no-drop;
 }
+
 .arrows {
   display: flex;
   gap: 12px;
 }
+
 .arrows button:disabled {
   opacity: 0.3;
 }
