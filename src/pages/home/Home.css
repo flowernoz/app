@@ -7,6 +7,13 @@
   flex-direction: column;
 }
 
+.book_name {
+  color: gray;
+  font-size: 20px;
+  font-weight: 550;
+  letter-spacing: 1px;
+}
+
 .img_container {
   width: 100%;
   display: flex;

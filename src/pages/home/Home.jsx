@@ -74,6 +74,7 @@ const Home = () => {
           initial="hidden"
           animate="visable"
         >
+          <p className="book_name">Grade  9  Vocabulary</p>
           <motion.div
             className="img_container"
             variants={imgContainerVariants}
