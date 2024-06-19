@@ -8,10 +8,11 @@
 }
 
 .book_name {
-  color: gray;
+  color: white;
   font-size: 20px;
   font-weight: 550;
   letter-spacing: 1px;
+  text-shadow: 2px 2px 10px gray, -2px -2px 10px gray;
 }
 
 .img_container {
